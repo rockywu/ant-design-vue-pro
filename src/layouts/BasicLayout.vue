@@ -41,6 +41,11 @@
         This is SettingDrawer custom footer content.
       </div>
     </setting-drawer>
+    <!-- layout content -->
+    <a-layout-content :style="{ height: '100%', margin: '0 0 40px 0', paddingTop: settings.fixedHeader ? '10px' : '0' }">
+      <multi-tab v-if="settings.multiTab"></multi-tab>
+      <transition name="page-transition"></transition>
+    </a-layout-content>
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
@@ -53,6 +58,7 @@
 </template>
 
 <script>
+import MultiTab from '@/components/MultiTab'
 import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
@@ -71,7 +77,8 @@ export default {
     RightContent,
     GlobalFooter,
     LogoSvg,
-    Ads
+    Ads,
+    MultiTab
   },
   data () {
     return {
@@ -93,6 +100,9 @@ export default {
         theme: defaultSettings.navTheme,
         // 主色调
         primaryColor: defaultSettings.primaryColor,
+
+        multiTab: defaultSettings.multiTab,
+
         fixedHeader: defaultSettings.fixedHeader,
         fixSiderbar: defaultSettings.fixSiderbar,
         colorWeak: defaultSettings.colorWeak,
